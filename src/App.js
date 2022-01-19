@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, {useState} from 'react';
+import InputForm from "./components/InputForm";
 
 function App() {
+
+  [data, setData] = useState({
+    age: 27,
+    netWorth: 60000,
+    salary: 70000,
+    food: 0,
+    housing: 0,
+    transportation: 0,
+    retireStocks: 0,
+    retireBonds: 0,
+    otherStocks: 0,
+    otherBonds: 0
+  })
+
+  const changeHandler = () => {
+
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <InputForm changeHandler = {changeHandler} />
+      </div>
   );
 }
 
