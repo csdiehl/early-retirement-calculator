@@ -17,21 +17,29 @@ const DUMMY_DATA = [
 ];
 
 function App() {
+
+  //State - consider useReducer
   const [data, setData] = useState({
     age: 30,
     netWorth: 60000,
     salary: 70000,
     food: 6000,
     housing: 15000,
-    transportation: 1500,
-    retireStocks: 0,
-    retireBonds: 0,
-    otherStocks: 0,
-    otherBonds: 0,
+    transportation: 10000,
+    otherExpense: 10000,
+    retireStocks: 10000,
+    retireBonds: 10000,
+    growthRateStocks: 7,
+    growthRateBonds: 2,
+    inflation: 3,
   });
 
   const [cash, setCash] = useState(47500);
   const [target, setTarget] = useState(562500);
+  const [endAge, setFireAge] = useState(50);
+
+  const yearsAhead = (endAge - data.age) + 10
+  //end of state logic
 
   const [chartData, setChartData] = useState(DUMMY_DATA);
 
@@ -46,38 +54,61 @@ function App() {
   };
 
   const calcInputs = () => {
-    const expenses = data.housing + data.transportation + data.food;
+    const expenses = data.housing + data.transportation + data.food + data.otherExpense;
     const cashFlow = Math.round(data.salary - expenses);
     const fireTarget = Math.round(expenses * 25);
+    const bondRate = data.growthRateBonds / 100;
+    const stockRate = data.growthRateStocks / 100;
+    const inflation = data.inflation / 100;
 
-    const years = Math.round((fireTarget - data.netWorth) / cashFlow);
 
     const yearData = [];
-    let totalSavings = data.netWorth;
+    let totalSavings = data.retireStocks + data.retireBonds;
+    let stockGrowth = data.retireStocks
+    let bondGrowth = data.retireBonds
+    let year = 1;
+    let fireAge = data.age;
 
-    for (let i = 1; i <= years; i++) {
+    //main calculation
+    while(year <= yearsAhead) {
       yearData.push({
-        year: i,
+        year: year,
         savings: totalSavings,
       });
 
-      totalSavings += cashFlow;
+      stockGrowth *= 1 + stockRate
+      bondGrowth *= 1 + bondRate
+
+      totalSavings +=
+        cashFlow +
+        stockGrowth +
+        bondGrowth - (totalSavings * inflation);
+      
+      if (totalSavings <= fireTarget) {
+        fireAge += 1;
+      }
+
+      year += 1;
     }
+
 
     setCash(cashFlow);
     setTarget(fireTarget);
     setChartData(yearData);
+    setFireAge(fireAge)
   };
+
+  
 
   return (
     <Container fluid className="justify-content-md-center App">
       <Row>
-        <Col md = "4">
-          <InputForm calcInputs={calcInputs} changeHandler={changeHandler} />
+        <Col md="4">
+          <InputForm inflation = {data.inflation} calcInputs={calcInputs} changeHandler={changeHandler} />
         </Col>
-        <Col md = "8">
-          <BigNumber target={target} cashFlow={cash} />
-          <Chart data={chartData} />
+        <Col md="8">
+          <BigNumber target={target} cashFlow={cash} age = {endAge} />
+          <Chart data={chartData} age = {data.age} number = {target} endYear = {yearsAhead} />
         </Col>
       </Row>
     </Container>
