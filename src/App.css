@@ -1,5 +1,6 @@
 .App {
   margin: 0px !important;
+  padding: 0px;
   background-color: #121212;
-  width: 100vw;
+  overflow: hidden;
 }

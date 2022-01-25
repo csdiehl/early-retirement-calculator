@@ -70,12 +70,12 @@ function App() {
   };
 
   return (
-    <Container className="justify-content-md-center App">
+    <Container fluid className="justify-content-md-center App">
       <Row>
-        <Col md = "3">
+        <Col md = "4">
           <InputForm calcInputs={calcInputs} changeHandler={changeHandler} />
         </Col>
-        <Col md = "9">
+        <Col md = "8">
           <BigNumber target={target} cashFlow={cash} />
           <Chart data={chartData} />
         </Col>

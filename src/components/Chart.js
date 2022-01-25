@@ -9,7 +9,7 @@ const Chart = (props) => {
  
   useEffect(() => {
    
-      const svg = d3.select("svg").attr("height", "500").attr("width", "800");
+      const svg = d3.select("svg").attr("height", height).attr("width", width);
   
       const xScale = d3
       .scaleLinear()
@@ -22,14 +22,15 @@ const Chart = (props) => {
       .range([height - padding, padding]);
   
     svg
-      .selectAll()
-      .data(props.data)
-      .enter()
-      .append("circle")
-      .attr("cx", (d) => xScale(d.year))
-      .attr("cy", (d) => yScale(d.savings))
-      .attr("r", 5)
-      .attr("fill", "#FFF");
+      .append("path")
+      .datum(props.data)
+      .attr("fill", "#cce5df")
+      .attr("stroke", "#69b3a2")
+      .attr("d", d3.area()
+      .x(d => xScale(d.year))
+      .y0(yScale(0))
+      .y1(d => yScale(d.savings))
+      )
     
 
     return function() {
