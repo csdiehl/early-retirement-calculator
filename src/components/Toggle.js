@@ -1,29 +1,27 @@
 import React, { useState } from "react";
 import DataTable from "./Table.js";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
+import Button  from "react-bootstrap/ToggleButton";
 import Chart from "./Chart";
 
 const Toggle = (props) => {
-  const [display, toggleDisplay] = useState('Chart');
+  const [display, toggleDisplay] = useState(true);
 
   const changeHandler = (event) => {
-    if (event.target.value === 'Chart') {
-        toggleDisplay('Chart')
-    }
-
-    if (event.target.value === 'Table') {
-        toggleDisplay('Table')
-    }
+    event.preventDefault();
+    toggleDisplay(prev => !prev);
   };
 
   return (
     <React.Fragment>
-      <ButtonGroup>
-        <ToggleButton value = "Chart" onChange = {changeHandler}>Chart</ToggleButton>
-        <ToggleButton value = "Table" onChange = {changeHandler}>Table</ToggleButton>
-      </ButtonGroup>
-      {display === 'Chart' ? <Chart /> : <DataTable />}
+        <Button variant = {display ? "light" : "outline-light"} onClick = {changeHandler}>{display ? 'Table' : 'Chart'}</Button>
+      {display ?
+        <Chart
+          data={props.data}
+          age={props.age}
+          number={props.number}
+          endYear={props.endYear}
+        />: 
+        <DataTable data = {props.data} />}
     </React.Fragment>
   );
 };

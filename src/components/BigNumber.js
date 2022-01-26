@@ -8,18 +8,18 @@ const BigNumber = (props) => {
   return (
     <Card>
       <Row>
-       <Col>
-      <h1 className = {styles.number}>{`$ ${props.cashFlow}`}</h1>
+       <Col xs = "4">
+      <h1 className = {styles.number}>{`$ ${props.cashFlow.toLocaleString('en-US')}`}</h1>
       <h2>Annual Savings</h2>
       </Col>
 
-      <Col>
-      <h1 className = {styles.number}>{`$ ${props.target}`}</h1>
+      <Col xs = "4">
+      <h1 className = {styles.number}>{`$ ${(props.target / 1000000).toLocaleString('en-US')} M`}</h1>
       <h2>Goal</h2>
       </Col>
 
-      <Col>
-      <h1 className = {styles.number}>{`${props.age} years old`}</h1>
+      <Col xs = "4">
+      <h1 className = {styles.number}>{`${props.age} years`}</h1>
       <h2>Retirement Age</h2>
       </Col>
       </Row>

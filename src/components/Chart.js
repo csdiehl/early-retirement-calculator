@@ -30,7 +30,7 @@ const Chart = (props) => {
       .datum(props.data)
       .attr("fill", lightRed)
       .attr("stroke", primaryColor)
-      .attr("stroke-width", 5)
+      .attr("stroke-width", 3)
       .attr(
         "d",
         d3
@@ -38,6 +38,21 @@ const Chart = (props) => {
           .x((d) => xScale(d.year))
           .y0(yScale(0))
           .y1((d) => yScale(d.savings))
+      );
+
+      svg
+      .append("path")
+      .datum(props.data)
+      .attr("fill", '#f68c70')
+      .attr("stroke", '#F69C6D')
+      .attr("stroke-width", 3)
+      .attr(
+        "d",
+        d3
+          .area()
+          .x((d) => xScale(d.year))
+          .y0(yScale(0))
+          .y1((d) => yScale(d.cash))
       );
 
     svg

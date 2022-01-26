@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import InputForm from "./components/InputForm";
 import BigNumber from "./components/BigNumber";
-import Chart from "./components/Chart.js";
+import Toggle from "./components/Toggle";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -63,6 +63,7 @@ function App() {
 
 
     const yearData = [];
+    let linearSaving = data.retireStocks + data.retireBonds;
     let totalSavings = data.retireStocks + data.retireBonds;
     let stockGrowth = data.retireStocks
     let bondGrowth = data.retireBonds
@@ -73,11 +74,14 @@ function App() {
     while(year <= yearsAhead) {
       yearData.push({
         year: year,
+        cash: linearSaving,
         savings: totalSavings,
       });
 
       stockGrowth *= 1 + stockRate
       bondGrowth *= 1 + bondRate
+
+      linearSaving += cashFlow - (linearSaving * inflation)
 
       totalSavings +=
         cashFlow +
@@ -108,7 +112,7 @@ function App() {
         </Col>
         <Col md="8">
           <BigNumber target={target} cashFlow={cash} age = {endAge} />
-          <Chart data={chartData} age = {data.age} number = {target} endYear = {yearsAhead} />
+          <Toggle data={chartData} age = {data.age} number = {target} endYear = {yearsAhead} />
         </Col>
       </Row>
     </Container>
