@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/early-retirement-calculator/static/css/main.0778c57f.css",
+    "main.js": "/early-retirement-calculator/static/js/main.81dd61d5.js",
+    "static/js/787.54a675f5.chunk.js": "/early-retirement-calculator/static/js/787.54a675f5.chunk.js",
+    "index.html": "/early-retirement-calculator/index.html",
+    "main.0778c57f.css.map": "/early-retirement-calculator/static/css/main.0778c57f.css.map",
+    "main.81dd61d5.js.map": "/early-retirement-calculator/static/js/main.81dd61d5.js.map",
+    "787.54a675f5.chunk.js.map": "/early-retirement-calculator/static/js/787.54a675f5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0778c57f.css",
+    "static/js/main.81dd61d5.js"
+  ]
+}
